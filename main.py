@@ -29,7 +29,8 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 app = FastAPI(
     title="Srf Booking API",
     description="API для бронирования научного оборудования",
-    version="2.0.0"
+    version="2.0.0",
+    swagger_ui_parameters={"persistAuthorization": True},
 )
 
 # Rate Limiting
