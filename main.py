@@ -199,7 +199,10 @@ async def create_booking(
     )
     if result.scalar_one_or_none():
         raise HTTPException(status_code=400, detail="Вы уже записаны на эту сессию")
-    db_booking = Booking(**booking.model_dump())
+    db_booking = Booking(
+        **booking.model_dump(),
+        created_at=datetime.utcnow()
+    )
     db.add(db_booking)
     facility.current_participants += 1
     await db.commit()
