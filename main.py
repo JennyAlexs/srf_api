@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from fastapi import FastAPI, Depends, HTTPException, status, Request
@@ -107,7 +108,9 @@ async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
     db_user = User(
         email=user.email,
         username=user.username,
-        password_hash=pwd_context.hash(user.password)
+        password_hash=pwd_context.hash(user.password),
+        role="client",
+        created_at=datetime.utcnow()
     )
     db.add(db_user)
     await db.commit()
